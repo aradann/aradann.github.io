@@ -7,7 +7,19 @@ export default defineConfig({
   plugins: [solidPlugin(), basicSsl()],
   build: {
     outDir: '../dist',
-    sourcemap: true,
+    sourcemap: false,
+    rollupOptions: {
+        output: {
+          entryFileNames: '[name].js',
+          assetFileNames: '[name].[ext]',
+          chunkFileNames: '[name].js',
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              return 'deps';
+            }
+          }
+        }
+  },
   },
   server: {
     port: 44300,
