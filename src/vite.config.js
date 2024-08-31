@@ -1,10 +1,9 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import basicSsl from '@vitejs/plugin-basic-ssl';
-
+import copy from 'rollup-plugin-copy' //https://www.npmjs.com/package/rollup-plugin-copy
 
 export default defineConfig({
-  plugins: [solidPlugin(), basicSsl()],
   build: {
     outDir: '../dist',
     sourcemap: false,
@@ -19,8 +18,19 @@ export default defineConfig({
             }
           }
         }
+    },
   },
-  },
+  plugins: [
+    copy({
+        targets: [
+          { src: '../assets/**/*', dest: '../dist' }
+        ],
+        verbose: true,
+        hook: 'writeBundle', //runs after cleanup dist
+    }),
+    solidPlugin(), 
+    basicSsl(),
+    ],
   server: {
     port: 44300,
     https: true,

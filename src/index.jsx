@@ -2,10 +2,9 @@ import { render } from "solid-js/web";
 
 function App() {
   return (
-    <div>
-        Hello Oleg!
-    </div>
+    <h2>
+        Glucometry
+    </h2>
   );
 }
-
-render(() => <App />, document.getElementById("app"));
+render(() => <App />, document.getElementById(`app`));
